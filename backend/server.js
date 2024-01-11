@@ -1,42 +1,30 @@
 const { configDotenv } = require("dotenv");
 const colors = require("colors")
 const express = require("express");
+const cors = require("cors")
 const app = express();
+const { connectDB } = require('./configs/db.js');
+const {ToDo} = require("./models/todoModel.js")
+const {todoRoute} = require("./routes/todoRoute.js")
+
 
 //configure env
 configDotenv();
+connectDB();
 
 //port
 const PORT = process.env.PORT || 8080;
 //middelware
+app.use(cors());
 app.use(express.json())
 
 
-let todoArray = [];
-// console.log(todoArray["task"])
-app.post("/create-todo", (req, res) => {
-  const task = {
-    taskname:req.body.taskname,
-    time: req.body.time,
-  }
-  todoArray.push(task);
-  res.json({message:'data added'});
-  console.log("todo array"+ todoArray)
-    
-})
-app.get("/show-tasks", (req,res)=>{
-  res.json(todoArray);
-  
-  todoArray.forEach((task,index) => {
-    console.log(`Task ${index + 1}:`);
-    console.log(`Task Name: ${task.taskname}`);
-    console.log(`Time: ${task.time}`);
-    console.log('------------------------');
-  });
-    
-  });
 
-console.log(todoArray)
+
+
+app.use("/todo",todoRoute)
+
+
 //rest api
 app.get("/", (req, res) => {
   res.send("server is on 8080 amit giri ji ");
@@ -46,3 +34,6 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`server running on ${process.env.DEV_MODE} mode on port : ${PORT}`.bgCyan.green);
 });
+// mongodb+srv://amitgiri:amit72@cluster0.rpo6kk7.mongodb.net/ecommerce
+
+// mongodb+srv://amitgiri:<password>@cluster0.rpo6kk7.mongodb.net/
