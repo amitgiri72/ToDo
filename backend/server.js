@@ -34,6 +34,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`server running on ${process.env.DEV_MODE} mode on port : ${PORT}`.bgCyan.green);
 });
-// mongodb+srv://amitgiri:amit72@cluster0.rpo6kk7.mongodb.net/ecommerce
-
-// mongodb+srv://amitgiri:<password>@cluster0.rpo6kk7.mongodb.net/
