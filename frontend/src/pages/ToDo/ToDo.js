@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import "./ToDo.css";
 import toast from "react-hot-toast";
 
-
 const ToDo = () => {
   const [task, setTask] = useState("");
   const [todos, setTodos] = useState([]);
@@ -13,7 +12,7 @@ const ToDo = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/todo/create-todo`,
+        "https://todo-69nw.onrender.com/todo/create-todo",
         { task, completed: false }
       );
       if (data?.success) {
@@ -32,7 +31,7 @@ const ToDo = () => {
 
   const getTodo = async () => {
     try {
-      let { data } = await axios.get(`${process.env.REACT_APP_API}/todo/show-todos`);
+      let { data } = await axios.get("https://todo-69nw.onrender.com/todo/show-todos");
       if (data?.success) {
         // console.log(data.todo);
         // toast(data.message);
@@ -46,12 +45,11 @@ const ToDo = () => {
     }
   };
 
-
   const updateTodo = async (id, completed) => {
     //write code for update todo
     try {
       let { data } = await axios.put(
-        `${process.env.REACT_APP_API}/todo/update-todo/${id}`,
+        `https://todo-69nw.onrender.com/todo/update-todo/${id}`,
         { completed: !completed }
       );
       if (data.success) {
@@ -74,7 +72,7 @@ const ToDo = () => {
     if (confirmation === true) {
       try {
         let { data } = await axios.delete(
-          `${process.env.REACT_APP_API}/todo/delete-todo/${id}`
+          `https://todo-69nw.onrender.com/todo/delete-todo/${id}`
         );
         if (data.success) {
           toast(data.message);
