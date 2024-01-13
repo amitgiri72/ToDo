@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./ToDo.css";
 import toast from "react-hot-toast";
 
+
 const ToDo = () => {
   const [task, setTask] = useState("");
   const [todos, setTodos] = useState([]);
@@ -12,7 +13,7 @@ const ToDo = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/todo/create-todo",
+        `${process.env.REACT_APP_API}/todo/create-todo`,
         { task, completed: false }
       );
       if (data?.success) {
@@ -31,7 +32,7 @@ const ToDo = () => {
 
   const getTodo = async () => {
     try {
-      let { data } = await axios.get("http://localhost:8080/todo/show-todos");
+      let { data } = await axios.get(`${process.env.REACT_APP_API}/todo/show-todos`);
       if (data?.success) {
         // console.log(data.todo);
         // toast(data.message);
@@ -45,11 +46,12 @@ const ToDo = () => {
     }
   };
 
+
   const updateTodo = async (id, completed) => {
     //write code for update todo
     try {
       let { data } = await axios.put(
-        `http://localhost:8080/todo/update-todo/${id}`,
+        `${process.env.REACT_APP_API}/todo/update-todo/${id}`,
         { completed: !completed }
       );
       if (data.success) {
@@ -72,7 +74,7 @@ const ToDo = () => {
     if (confirmation === true) {
       try {
         let { data } = await axios.delete(
-          `http://localhost:8080/todo/delete-todo/${id}`
+          `${process.env.REACT_APP_API}/todo/delete-todo/${id}`
         );
         if (data.success) {
           toast(data.message);
@@ -99,9 +101,9 @@ const ToDo = () => {
             value={task}
             onChange={(e) => setTask(e.target.value)}
           />
-          <button class="button" data-text="Submit">
-            <span class="actual-text">&nbsp;Submit&nbsp;</span>
-            <span aria-hidden="true" class="hover-text">
+          <button className="button" data-text="Submit">
+            <span className="actual-text">&nbsp;Submit&nbsp;</span>
+            <span aria-hidden="true" className="hover-text">
               &nbsp;Submit&nbsp;
             </span>
           </button>
